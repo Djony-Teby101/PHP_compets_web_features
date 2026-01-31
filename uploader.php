@@ -1,20 +1,41 @@
-<?php
-$dossier = 'uploads/';
-if (!is_dir($dossier)) mkdir($dossier, 0777, true);
+<?php 
+    //  configuration
 
- $tmp_name=$_FILES['fichier']['tmp_name'];
- $nom=$_FILES['fichier']['name'];
+    $uploadDir='uploads/';
+    $profileDir= $uploadDir.'profile/';
+    $carteDir=$uploadDir.'carte/';
 
-if(!empty($nom)){
-     $nom_fichier = basename($nom);
-     $chemin_final = $dossier . $nom_fichier;
+ // Creer les fichier s'il n'existe pas.
+    if(!file_exists($uploadDir)){
+        mkdir($uploadDir, 0755,true);
+    }   
+    if(!file_exists($profileDir)){
+        mkdir($profileDir, 0755, true);
+    }
+    if(!file_exists($carteDir)){
+        mkdir($carteDir, 0755, true);
+    }
 
 
-     if(move_uploaded_file($tmp_name, $chemin_final)){
-        echo "le fichier a été televerser $chemin_final";
-     }else{
-        echo "Erreur lors du chargement du $nom_fichier";
-     }
-}
+    $allowedExtension=['jpg', 'jpeg', 'png'];
+    $maxFileSize=5*1024*1024 ;
 
-?>
+//    Recuperer le fichier Televerser.
+    $ImageTeleverser=$_FILES['image'];
+    $Imagesize=$_FILES['image']['size'];
+    $ImageName=$_FILES['image']['name'];
+    $ImageTmp_name=$_FILES['image']['tmp_name'];
+    
+    // Telverser le fichier.
+    $pathDirImage=$profileDir.basename($ImageName);
+
+    if(move_uploaded_file($ImageTmp_name, $pathDirImage)){
+        var_dump('Image televerser  avec succes !');
+    }else{
+        var_dump("Erreur lors du traitement");
+    }
+
+
+
+
+   
