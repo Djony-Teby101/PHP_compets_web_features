@@ -76,8 +76,10 @@
     if(empty($errors)){
         // Telverser le fichier.
         $pathDirImage=$profileDir.basename($ImageName);
+        $fileName=$profileDir.uniqid().'-'.time().'.'.$fileExtension;
+        var_dump($fileName);
 
-        if(move_uploaded_file($ImageTmp_name, $pathDirImage)){
+        if(move_uploaded_file($ImageTmp_name, $fileName)){
              var_dump('Image televerser  avec succes !');
         }else{
              var_dump("Erreur lors du traitement");
